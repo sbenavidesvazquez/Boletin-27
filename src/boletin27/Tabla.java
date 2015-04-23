@@ -5,6 +5,7 @@
 
 package boletin27;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -45,7 +46,11 @@ public class Tabla extends javax.swing.JFrame {
         cbCiclo = new javax.swing.JComboBox();
         bGuardar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabla = new javax.swing.JTable();
+        tabla = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex,int collIndex){
+                return false;
+            }
+        };
         bBorrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -54,12 +59,42 @@ public class Tabla extends javax.swing.JFrame {
 
         lApellido.setText("Apellido:");
 
+        tNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tNombreActionPerformed(evt);
+            }
+        });
+        tNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                none(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tNombreKeyReleased(evt);
+            }
+        });
+
+        tApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tApellidoKeyReleased(evt);
+            }
+        });
+
         cbCiclo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DAM1", "DAM2", "ASIR1", "ASIR2", "pcpi1", "pcpi2", "Admin1", "Admin2" }));
+        cbCiclo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cbCicloKeyReleased(evt);
+            }
+        });
 
         bGuardar.setText("Agregar Taboa");
         bGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bGuardarActionPerformed(evt);
+            }
+        });
+        bGuardar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                bGuardarKeyReleased(evt);
             }
         });
 
@@ -87,6 +122,11 @@ public class Tabla extends javax.swing.JFrame {
                 bBorrarActionPerformed(evt);
             }
         });
+        bBorrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                bBorrarKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -95,6 +135,7 @@ public class Tabla extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -104,17 +145,13 @@ public class Tabla extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lNome)
                                 .addGap(110, 110, 110)
-                                .addComponent(tNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(bGuardar))
                         .addGap(69, 69, 69)
-                        .addComponent(cbCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bBorrar)
+                            .addComponent(cbCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(35, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(bBorrar)
-                .addGap(96, 96, 96)
-                .addComponent(bGuardar)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,17 +165,17 @@ public class Tabla extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lApellido)
-                            .addComponent(tApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bBorrar)
-                            .addComponent(bGuardar)))
+                            .addComponent(tApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bBorrar)
+                    .addComponent(bGuardar))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -166,18 +203,78 @@ public class Tabla extends javax.swing.JFrame {
         tApellido.setText(null);
         datos[2]=(String) cbCiclo.getSelectedItem();
         tab.addRow(datos);
+        //tabla.setEnabled(false);
         
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void bBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBorrarActionPerformed
         int fila=tabla.getSelectedRow();
-        if(fila>=0){
+        
+            if(fila>=0){
             tab.removeRow(fila);
             JOptionPane.showMessageDialog(null, "Fila borrada");
         }
         else
-            JOptionPane.showMessageDialog(null, "Seleccione fila para borrar");
+            JOptionPane.showMessageDialog(null, "Seleccione fila para borrar");        
+        
     }//GEN-LAST:event_bBorrarActionPerformed
+
+    private void tNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tNombreActionPerformed
+        
+    }//GEN-LAST:event_tNombreActionPerformed
+
+    private void none(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_none
+        
+    }//GEN-LAST:event_none
+    /**
+     * 
+     * @param evt 
+     */
+    private void tNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tNombreKeyReleased
+        
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER)
+            tApellido.grabFocus();
+    }//GEN-LAST:event_tNombreKeyReleased
+    /**
+     * 
+     * @param evt 
+     */
+    private void tApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tApellidoKeyReleased
+        
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER)
+            cbCiclo.grabFocus();
+        
+    }//GEN-LAST:event_tApellidoKeyReleased
+    /**
+     * 
+     * @param evt 
+     */
+    private void bGuardarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bGuardarKeyReleased
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER)        
+            tNombre.grabFocus();
+        
+        if(evt.getKeyCode()==KeyEvent.VK_RIGHT)
+            bBorrar.grabFocus();
+    }//GEN-LAST:event_bGuardarKeyReleased
+    /**
+     * 
+     * @param evt 
+     */
+    private void cbCicloKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbCicloKeyReleased
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){           
+            bGuardar.grabFocus();
+        } 
+    }//GEN-LAST:event_cbCicloKeyReleased
+    /**
+     * 
+     * @param evt 
+     */
+    private void bBorrarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bBorrarKeyReleased
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER)        
+            tNombre.grabFocus();
+        if(evt.getKeyCode()==KeyEvent.VK_LEFT)
+            bGuardar.grabFocus();
+    }//GEN-LAST:event_bBorrarKeyReleased
 
     /**
      * @param args the command line arguments
